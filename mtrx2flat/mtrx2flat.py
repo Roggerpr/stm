@@ -93,8 +93,8 @@ def convert(input_dir, output_dir, verbose=True, stdout=None, stderr=None):
     :param stderr:
     :return: None.
     """
-    input_dir = os.path.abspath(input_dir)  # Define an explicit os path.
-    output_dir = os.path.abspath(output_dir)  # Define an explicit os path.
+    input_dir = os.path.normpath(input_dir)  # Define an explicit os path.
+    output_dir = os.path.normpath(output_dir)  # Define an explicit os path.
 
     if not os.path.isdir(output_dir):  # If there is no existing output directory.
         if verbose:
@@ -104,10 +104,10 @@ def convert(input_dir, output_dir, verbose=True, stdout=None, stderr=None):
     # Construct a str of command line arguments to pass to subprocess.
     cmd_list = str.join(' ', (vernissagecmd_path,  # VernissageCmd.exe file path.
                               # VernissageCmd.exe arguments
-                              '-path {path}'.format(path=input_dir),  # input directory path.
-                              '-outdir {outdir}'.format(outdir=output_dir),  # output directory path.
+                              '-path "{path}"'.format(path=input_dir),  # input directory path.
+                              '-outdir "{outdir}"'.format(outdir=output_dir),  # output directory path.
                               '-exporter {exporter}'.format(exporter=vernissage_exporter)))  # exporter to be used.
-
+    print(cmd_list)
     if verbose:  # if not quite print where converted data is created.
         print('Converting data to: {out}'.format(out=output_dir))
 
