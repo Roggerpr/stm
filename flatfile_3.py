@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 """
-
     \mainpage Python Matrix Flat File Parser
 
     This script parse the Omicron Matrix Flat File Format to return a python
