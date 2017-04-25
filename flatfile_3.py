@@ -33,6 +33,9 @@
 
 
     \section Updates
+    2017-04 pconstantinou:
+        - Added axis key for the latest MATRIX version; 'MATRIX V3.3.1-_v1639-tag-release-MatrixKit_3.3.1-195903'.
+        - Explicitly defined 'sizeV' to be an integer for indexing purposes.
     2016-12 tgill:
         Altered to be compatible with python 3.
     2016-04 tgill:
@@ -124,6 +127,12 @@ class FlatFile():
         # compatible with the breaking change of Matrix v3.1.
         #
         self.axis_keys = {}
+        # MATRIX V3.3.1 - added by PCC
+        self.axis_keys['MATRIX V3.3.1-_v1639-tag-release-MatrixKit_3.3.1-195903'] = {
+            'V': 'Default::Spectroscopy::V',
+            'X': 'Default::XYScanner::X',
+            'Y': 'Default::XYScanner::Y',
+            }
         self.axis_keys['MATRIX V3.1-1'] = {
             'V': 'Default::Spectroscopy::V',
             'X': 'Default::XYScanner::X',
@@ -519,8 +528,8 @@ class FlatFile():
                 self.data.append(DataArray(self.rawData, info))
 
         elif self.isVPointSpectroscopy():
-
-            sizeV = self.axis[self.axis_keys['V']]['clockCount']/(self.axis[self.axis_keys['V']]['mirrored']+1)
+            # PCC changed sizeV to be explicitely an integer only for indexing purposes
+            sizeV = int(self.axis[self.axis_keys['V']]['clockCount']/(self.axis[self.axis_keys['V']]['mirrored']+1))
 
             info.update({
                 'type' : 'ivcurve',
